@@ -1,23 +1,39 @@
-import { ThemeProvider } from "./components/ui/theme-provider";
-import { NavigationMenu } from "./components/ui/navigation";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "./components/theme-provider";
+import { NavigationMenu } from "./components/navigation";
 import Footer from "./components/footer";
-import Hero from "./components/ui/hero"; // Assuming hero is a component, not a video file  
+// import Hero from "./components/pages/home";
+
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Services from "./pages/Services";
+import Plans from "./pages/Plans";
+import Contact from "./pages/Contact";
+
+import "./App.css";
+import Swiper from "./components/ui/swiper";
 
 function App() {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <div className="min-h-screen bg-white dark:bg-black">
-        <NavigationMenu />
-        <Hero /> {/* Hero section with video background */}
-      
-        {/* Add your pages here */}
-      </div>
+      <Router>
+        <div className="min-h-screen bg-white dark:bg-black flex flex-col font-montserrat">
+          <NavigationMenu />
 
-
-      <div className="flex flex-col screen">
-        <Footer />
-      </div>
+          {/* Route Content */}
+          <Routes>
+            <Route path="/" element={<><Home /></>} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/plans" element={<Plans />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+           <div className="mt-20 w-full">
+          <Swiper />
+          </div>
+          <Footer />
+        </div>
+      </Router>
     </ThemeProvider>
   );
 }

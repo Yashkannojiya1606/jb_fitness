@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+/* .swiper-pagination-bullet {
+  display: none;
+}
+
+.swiper-pagination-bullet-active {
+  display: inline-block; 
+  background-color: #facc15; 
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+} */
+

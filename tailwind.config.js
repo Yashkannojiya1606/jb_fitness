@@ -1,10 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  darkMode: "class", // ✅ Enables class-based dark mode
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        montserrat: ['Montserrat', 'sans-serif'], // ✅ Custom font
+      },
+    },
   },
   plugins: [],
-  darkMode: "class", // ✅ Required for class-based dark mode
-
-}
+};
