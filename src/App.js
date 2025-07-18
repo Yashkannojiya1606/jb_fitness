@@ -9,9 +9,11 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Plans from "./pages/Plans";
 import Contact from "./pages/Contact";
-
+     
 import "./App.css";
 import Swiper from "./components/ui/swiper";
+import Achievements from "./components/Achievements";
+import TrainerSpotlight from "./components/TrainerSpotlight";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           </Routes>
            <div className="mt-20 w-full">
           <Swiper />
+           <Achievements />
+          <TrainerSpotlight />
           </div>
           <Footer />
         </div>

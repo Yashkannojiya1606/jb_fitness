@@ -84,6 +84,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { IoIosArrowDropdown } from "react-icons/io";
 
 // Animation Variants
 const container = {
@@ -114,27 +115,26 @@ const headingVariants = {
   },
 };
 
-// Services Data
 const programs = [
   {
     title: "Weight Training",
     image: "/images/service_1.webp",
-    description: "Build muscle with guided strength routines.",
+    description: "Build muscle with guided strength routines",
   },
   {
     title: "Cardio Fitness",
     image: "/images/service_2.webp",
-    description: "Boost endurance with our cardio sessions.",
+    description: "Boost endurance with our cardio sessions",
   },
   {
     title: "CrossFit",
     image: "/images/service_3.webp",
-    description: "High intensity CrossFit challenges await you.",
+    description: "High intensity CrossFit challenges await you",
   },
   {
     title: "Personal Training",
-    image: "/images/service_4.webp",
-    description: "One-on-one sessions tailored to your goals.",
+    image: "/images/weight_4.webp",
+    description: "One-on-one sessions tailored to your goals",
   },
 ];
 
@@ -144,7 +144,10 @@ export default function LandingPage() {
   return (
     <div className="w-full overflow-hidden">
       {/* 🔥 HERO SECTION */}
-      <section className="relative h-screen w-full overflow-hidden">
+      <section
+        id="hero" // ✅ ID added for scrolling target
+        className="relative h-screen w-full overflow-hidden"
+      >
         <motion.video
           className="absolute bottom-0 left-0 w-full h-full object-cover z-0"
           src="/videos/banner.mp4"
@@ -184,7 +187,7 @@ export default function LandingPage() {
             facilities.
           </motion.p>
 
-          <motion.div variants={item} className="flex gap-4">
+          <motion.div variants={item} className="flex gap-4 mb-10">
             <a
               href="#plans"
               className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded hover:bg-yellow-500 hover:shadow-lg transition-all shadow-yellow-300"
@@ -199,70 +202,106 @@ export default function LandingPage() {
             </a>
           </motion.div>
         </motion.div>
-
-        {/* Black Overlay */}
-        <div className="absolute inset-0 bg-black/60 z-10"></div>
       </section>
 
-      {/* 🌟 SECTION: Fancy Heading Between Hero & Services */}
+      {/* 👇 DOWN ARROW – Scroll to HERO */}
       <motion.section
-        className="w-full text-white text-center pt-20 pb-16 px-4 backdrop-blur-md bg-white/5 border-t border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+        id="wellness-heading"
+        className="w-full text-center pt-40 pb-32 px-4 backdrop-blur-md bg-white/5 border-t border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.1)]"
         variants={headingVariants}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
       >
+        <div className="w-full flex justify-center mb-12">
+          <button
+            onClick={() =>
+              document
+                .getElementById("hero") // ✅ Scrolls to HERO
+                .scrollIntoView({ behavior: "smooth" })
+            }
+            className="text-white text-6xl animate-bounce"
+          >
+            <IoIosArrowDropdown />
+          </button>
+        </div>
+
         <p className="text-[14px] font-extrabold tracking-widest text-yellow-400 uppercase mb-2 relative inline-block after:block after:mt-1 after:w-10 after:h-1 after:bg-yellow-400 after:mx-auto after:rounded-full after:blur-sm">
-          WE'VE GOT EXPERTS TO HELP YOU        </p>
-        <h2 className="text-[32px] md:text-[64px] font-extrabold leading-tight font-orbitron">
+          WE'VE GOT EXPERTS TO HELP YOU
+        </p>
+        <h2 className="text-[32px] md:text-[64px] font-extrabold leading-tight font-orbitron dark:text-white text-black">
           WELLNESS SPECIALISTS
         </h2>
       </motion.section>
 
       {/* ✅ SERVICE SECTION */}
-      <section
-        className="relative w-full h-[700px] flex flex-col justify-center items-center text-white transition-all duration-500"
-        style={{
-          backgroundImage: `url(${programs[activeIndex].image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/60 z-0" />
+<section
+  className="relative w-full h-[700px] flex flex-col justify-end items-center text-white transition-all duration-500"
+  style={{
+    backgroundImage: `url(${programs[activeIndex].image})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  <div className="absolute inset-0 bg-black/60 z-0" />
 
-        {/* Service Headings Hover */}
-        <div className="relative z-10 flex flex-wrap justify-center gap-8 mb-12">
-          {programs.map((program, idx) => (
-            <div
+  <div className="relative z-10 w-full max-w-6xl px-8">
+    <div className="flex justify-between gap-36">
+      {programs.map((program, idx) => (
+        <div
+          key={idx}
+          onMouseEnter={() => setActiveIndex(idx)}
+          className="relative group cursor-pointer text-center w-64"
+        >
+          {/* Glass Card on Hover */}
+          {activeIndex === idx && (
+            <motion.div
               key={idx}
-              onMouseEnter={() => setActiveIndex(idx)}
-              className={`cursor-pointer text-2xl font-semibold transition-all duration-300 ${activeIndex === idx ? "text-white scale-105" : "text-gray-400"
-                }`}
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute bottom-full mb-6 w-72 bg-white/10 backdrop-blur-lg rounded-xl p-6 text-white shadow-xl z-20"
+              style={{ minHeight: "320px" }} // Increased height
             >
-              {program.title}
-            </div>
-          ))}
-        </div>
+              <h3 className="text-[32px] font-semibold">{program.title}</h3>
+              <p className="mt-2 text-[18px] font-normal text-white/80 leading-relaxed">
+                {program.description} <br />
+                This program helps you transform physically and mentally with expert guidance and proven methods.
+              </p>
+              <button className="mt-6 w-full bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition font-medium text-sm">
+                Explore More
+              </button>
+            </motion.div>
+          )}
 
-        {/* Glass Card */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="relative z-10 w-[90%] md:w-[500px] bg-white/10 backdrop-blur-lg rounded-xl p-6 text-white border border-white/20 shadow-xl"
-          >
-            <h3 className="text-2xl font-bold">
-              {programs[activeIndex].title}
-            </h3>
-            <p className="mt-2 text-white/80 text-sm">
-              {programs[activeIndex].description}
-            </p>
-          </motion.div>
-        </AnimatePresence>
-      </section>
+          {/* Show only when not hovered */}
+          {activeIndex !== idx && (
+            <>
+              <div className="text-[32px] font-semibold text-gray-300">
+                {program.title}
+              </div>
+              <p className="text-[18px] font-normal text-gray-400 mt-1">
+                {program.description}
+              </p>
+            </>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div className="h-16" /> {/* Bottom spacing */}
+</section>
+
+
+
+
+
+
+
+
+
     </div>
   );
 }
