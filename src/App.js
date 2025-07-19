@@ -14,6 +14,7 @@ import "./App.css";
 import Swiper from "./components/ui/swiper";
 import Achievements from "./components/Achievements";
 import TrainerSpotlight from "./components/TrainerSpotlight";
+import FaqSection from "./components/FaqSection";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Swiper />
            <Achievements />
           <TrainerSpotlight />
+          <FaqSection />
           </div>
           <Footer />
         </div>
